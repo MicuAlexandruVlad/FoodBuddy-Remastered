@@ -1,7 +1,7 @@
 package com.example.foodbuddyremastered.constants
 
-class ObjectTypes {
+class Locations {
     companion object {
-        const val USER = 1
+        const val LOGIN_VIEW_MODEL = 1
     }
 }

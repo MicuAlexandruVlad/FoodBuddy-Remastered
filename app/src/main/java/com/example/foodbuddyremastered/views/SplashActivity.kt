@@ -1,10 +1,11 @@
-package com.example.foodbuddyremastered
+package com.example.foodbuddyremastered.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.RelativeLayout
+import com.example.foodbuddyremastered.R
 import org.jetbrains.anko.find
 
 class SplashActivity : AppCompatActivity() {

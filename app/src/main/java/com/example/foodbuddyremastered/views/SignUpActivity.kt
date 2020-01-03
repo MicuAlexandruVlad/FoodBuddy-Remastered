@@ -1,28 +1,33 @@
-package com.example.foodbuddyremastered
+package com.example.foodbuddyremastered.views
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.Animatable
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
-import androidx.core.content.ContextCompat
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodbuddyremastered.R
+import com.example.foodbuddyremastered.adapters.EatTimesAdapter
+import com.example.foodbuddyremastered.constants.ObjectTypes
+import com.example.foodbuddyremastered.events.ObjectUploadedEvent
 import com.example.foodbuddyremastered.models.EatTimes
 import com.example.foodbuddyremastered.models.User
+import com.example.foodbuddyremastered.utils.APIClient
 import com.example.foodbuddyremastered.utils.NotifUtils
+import com.google.gson.Gson
 import com.rengwuxian.materialedittext.MaterialEditText
 import com.xw.repo.BubbleSeekBar
+import cz.msebera.android.httpclient.HttpStatus
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
-import kotlin.math.sign
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -59,22 +64,33 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var eatTimesArray: ArrayList<EatTimes>
     private lateinit var eatTimesAdapter: EatTimesAdapter
+    private lateinit var notifUtils: NotifUtils
 
     private var isMale = false
     private var isFemale = false
+    private var isGenderSelected = false
     private var isPartnerMale = false
     private var isPartnerFemale = false
+    private var isPartnerGenderSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
         bindViews()
-        //EventBus.getDefault().register(this)
-        val notifUtils = NotifUtils(this)
+        EventBus.getDefault().register(this)
+        notifUtils = NotifUtils(this)
+
+
+
 
         eatTimesArray = ArrayList()
-        eatTimesAdapter = EatTimesAdapter(eatTimesArray, this, User())
+        eatTimesAdapter =
+            EatTimesAdapter(
+                eatTimesArray,
+                this,
+                User()
+            )
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = eatTimesAdapter
         recyclerView.isNestedScrollingEnabled = false
@@ -96,6 +112,7 @@ class SignUpActivity : AppCompatActivity() {
                 femaleOn.visibility = View.GONE
             }
 
+            isGenderSelected = true
             isMale = true
             isFemale = false
 
@@ -111,6 +128,7 @@ class SignUpActivity : AppCompatActivity() {
                 maleOn.visibility = View.GONE
             }
 
+            isGenderSelected = true
             isMale = false
             isFemale = true
 
@@ -126,6 +144,7 @@ class SignUpActivity : AppCompatActivity() {
                 partnerFemaleOn.visibility = View.GONE
             }
 
+            isPartnerGenderSelected = true
             isPartnerMale = true
             isPartnerFemale = false
 
@@ -141,6 +160,7 @@ class SignUpActivity : AppCompatActivity() {
                 partnerMaleOn.visibility = View.GONE
             }
 
+            isPartnerGenderSelected = true
             isPartnerMale = false
             isPartnerFemale = true
 
@@ -151,6 +171,66 @@ class SignUpActivity : AppCompatActivity() {
             eatTimesArray.add(EatTimes())
             eatTimesAdapter.notifyItemInserted(eatTimesArray.size - 1)
         }
+
+        signUp.setOnClickListener {
+            val user = User()
+            if (checkFieldsCompletion()) {
+                if (!isGenderSelected) {
+                    notifUtils.createToast("Gender not selected").show()
+                } else if (!isPartnerGenderSelected) {
+                    notifUtils.createToast("Partner gender not selected").show()
+                } else if (password.text.toString().compareTo(confirmPassword.text.toString()) != 0) {
+                    notifUtils.createToast("Passwords do not match").show()
+                } else if (eatTimesArray.isEmpty()) {
+                    notifUtils.createToast("No eat times added").show()
+                } else if (checkEatTimes(user)) {
+                    user.email = email.text.toString()
+                    user.password = password.text.toString()
+                    user.firstName = firstName.text.toString()
+                    user.lastName = lastName.text.toString()
+                    user.city = city.text.toString()
+                    user.country = country.text.toString()
+                    user.age = userAge.progress
+                    user.partnerMinAge = partnerMinAge.progress
+                    user.partnerMaxAge = partnerMaxAge.progress
+                    user.profileComplete = true
+
+                    if (isMale) {
+                        user.gender = "Male"
+                    } else {
+                        user.gender = "Female"
+                    }
+
+                    if (isPartnerMale) {
+                        user.partnerGender = "Male"
+                    } else {
+                        user.partnerGender = "Female"
+                    }
+
+                    Log.d(TAG, "User object -> ${Gson().toJson(user)}")
+
+                    val apiClient = APIClient()
+                    apiClient.registerUserEmail(user)
+
+                } else {
+                    notifUtils.createToast("Some fields are empty").show()
+                }
+            } else {
+                notifUtils.createToast("One or more fields are empty").show()
+            }
+        }
+    }
+
+    private fun checkFieldsCompletion(): Boolean {
+
+        if (email.text.isNullOrEmpty() || password.text.isNullOrEmpty() || confirmPassword.text.isNullOrEmpty()
+            || firstName.text.isNullOrEmpty() || lastName.text.isNullOrEmpty() || city.text.isNullOrEmpty()
+            || country.text.isNullOrEmpty()) {
+
+            return false
+        }
+
+        return true
     }
 
     private fun bindViews() {
@@ -184,6 +264,43 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //EventBus.getDefault().unregister(this)
+        EventBus.getDefault().unregister(this)
+    }
+
+    private fun checkEatTimes(user: User): Boolean {
+        user.eatTimes.clear()
+
+        for (index in 0 until recyclerView.childCount) {
+            val child = recyclerView.getChildAt(index)
+            val start = child.find<MaterialEditText>(R.id.met_start)
+            val end = child.find<MaterialEditText>(R.id.met_end)
+
+            if (start.text.isNullOrEmpty() || end.text.isNullOrEmpty()) {
+                return false
+            } else {
+                val eatTimes = EatTimes()
+                eatTimes.start = start.text.toString()
+                eatTimes.end = end.text.toString()
+
+                user.eatTimes.add(eatTimes)
+            }
+        }
+
+        return true
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUserRegistered(objectUploadedEvent: ObjectUploadedEvent) {
+        if (objectUploadedEvent.objType == ObjectTypes.USER) {
+            when (objectUploadedEvent.status) {
+                HttpStatus.SC_CREATED -> {
+                    notifUtils.createToast("Account created").show()
+                    Intent(this, LoginActivity::class.java).also {
+                        finish()
+                        startActivity(it)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.foodbuddyremastered
+package com.example.foodbuddyremastered.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodbuddyremastered.R
+import com.example.foodbuddyremastered.constants.ButtonIds
+import com.example.foodbuddyremastered.events.ButtonPressedEvent
 import com.example.foodbuddyremastered.models.EatTimes
 import com.example.foodbuddyremastered.models.User
 import com.rengwuxian.materialedittext.MaterialEditText
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 
 class EatTimesAdapter(private var eatTimes: ArrayList<EatTimes>,
@@ -24,7 +30,9 @@ class EatTimesAdapter(private var eatTimes: ArrayList<EatTimes>,
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.eat_times_list_item, p0, false)
 
-        return ViewHolder(view)
+        return ViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
@@ -33,8 +41,7 @@ class EatTimesAdapter(private var eatTimes: ArrayList<EatTimes>,
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val eatTime = EatTimes()
-
+        val eatTime = eatTimes[position]
 
     }
 

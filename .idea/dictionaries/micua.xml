@@ -2,7 +2,10 @@
   <dictionary name="micua">
     <words>
       <w>animatable</w>
+      <w>foodbuddyremastered</w>
+      <w>mvvm</w>
       <w>notif</w>
+      <w>viewmodels</w>
     </words>
   </dictionary>
 </component>

@@ -1,109 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/md_white"
-    android:clipToPadding="false"
-    android:paddingBottom="16dp"
-    tools:context=".LoginActivity">
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_log_in_title"
-        android:textSize="24sp"
-        android:textColor="@color/onyx"
-        android:textStyle="bold"
-        android:text="Welcome Back"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"
-        tools:ignore="HardcodedText" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/met_email"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/md_black"
-        android:layout_below="@id/tv_log_in_title"
-        android:layout_marginTop="52dp"
-        app:met_floatingLabel="highlight"
-        app:met_floatingLabelText="Email"
-        android:hint="Email"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:ignore="HardcodedText" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/met_password"
-        android:inputType="textPassword"
-        android:textColor="@color/md_black"
-        android:layout_below="@id/met_email"
-        android:layout_marginTop="16dp"
-        app:met_floatingLabel="highlight"
-        app:met_floatingLabelText="Email"
-        android:hint="Password"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:ignore="HardcodedText" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.foodbuddyremastered.viewmodels.LoginViewModel" />
+    </data>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/met_password"
-        android:layout_marginTop="12dp"
-        >
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cb_remember_me"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_centerVertical="true"/>
+        android:layout_height="match_parent"
+        android:background="@color/md_white"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        tools:context=".views.LoginActivity">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_remember_me"
-            android:layout_toEndOf="@id/cb_remember_me"
-            android:layout_centerVertical="true"
-            android:textColor="@color/md_black"
-            android:text="Remember me"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_forgot_password"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:id="@+id/tv_log_in_title"
+            android:textSize="24sp"
             android:textColor="@color/onyx"
             android:textStyle="bold"
-            android:text="Forgot password ?"
-            android:textSize="16sp"
+            android:text="Welcome Back"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={ viewModel.email }"
+            android:id="@+id/met_email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/md_black"
+            android:layout_below="@id/tv_log_in_title"
+            android:layout_marginTop="52dp"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Email"
+            android:hint="Email"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={ viewModel.password }"
+            android:id="@+id/met_password"
+            android:inputType="textPassword"
+            android:textColor="@color/md_black"
+            android:layout_below="@id/met_email"
+            android:layout_marginTop="16dp"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Email"
+            android:hint="Password"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/met_password"
+            android:layout_marginTop="12dp"
+            >
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cb_remember_me"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_remember_me"
+                android:layout_toEndOf="@id/cb_remember_me"
+                android:layout_centerVertical="true"
+                android:textColor="@color/md_black"
+                android:text="Remember me"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_forgot_password"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/onyx"
+                android:textStyle="bold"
+                android:text="Forgot password ?"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_log_in"
+            android:onClick="@{ () -> viewModel.onLoginClicked() }"
+            android:text="Login"
+            android:textSize="16sp"
+            android:textColor="@color/md_white"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:background="@drawable/btn_round_onyx"
+            android:layout_alignParentBottom="true"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_log_in"
-        android:text="Login"
-        android:textSize="16sp"
-        android:textColor="@color/md_white"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/btn_round_onyx"
-        android:layout_alignParentBottom="true"
-        tools:ignore="HardcodedText" />
-
-</RelativeLayout>
+</layout>
