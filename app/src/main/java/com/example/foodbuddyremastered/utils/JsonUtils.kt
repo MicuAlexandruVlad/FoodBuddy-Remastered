@@ -2,9 +2,12 @@ package com.example.foodbuddyremastered.utils
 
 import com.example.foodbuddyremastered.models.EatTimes
 import com.example.foodbuddyremastered.models.User
+import com.example.foodbuddyremastered.models.UserFilter
 import com.google.gson.Gson
 import com.loopj.android.http.RequestParams
+import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.StringBuilder
 
 class JsonUtils {
     companion object {
@@ -53,6 +56,63 @@ class JsonUtils {
                         })
                     }
                 })
+            }
+        }
+
+        fun discoverFilterToParams(filter: UserFilter): RequestParams {
+            return RequestParams().apply {
+                put("start", filter.start)
+                put("end", filter.end)
+                put("city", filter.city)
+                put("country", filter.country)
+                put("gender", filter.gender)
+                put("minAge", filter.minAge)
+                put("maxAge", filter.maxAge)
+                put("zodiacSigns", StringBuilder().apply {
+                    for (index in filter.zodiacSigns.indices) {
+                        append(filter.zodiacSigns[index].name)
+                        if (index != filter.zodiacSigns.size - 1) {
+                            append("_")
+                        }
+                    }
+
+                    toString()
+                })
+            }
+        }
+
+        fun jsonArrayToUserArray(jsonArray: JSONArray): ArrayList<User> {
+            return ArrayList<User>().also {
+                for (index in 0 until jsonArray.length()) {
+                    it.add(User().also { user ->
+                        val obj = jsonArray.getJSONObject(index)
+                        val eatTimesJson = obj.getJSONArray("eatTimes")
+
+                        // eat times loop
+                        for (i in 0 until eatTimesJson.length()) {
+                            user.eatTimes.add(EatTimes().also { eatTimes ->
+                                eatTimes.start = eatTimesJson.getJSONObject(i).getString("start")
+                                eatTimes.end = eatTimesJson.getJSONObject(i).getString("end")
+                            })
+                        }
+
+                        user.id = obj.getString("_id")
+                        // also add photoId after implementing photo upload
+                        user.email = obj.getString("email")
+                        user.firstName = obj.getString("firstName")
+                        user.lastName = obj.getString("lastName")
+                        user.city = obj.getString("city")
+                        user.country = obj.getString("country")
+                        user.phoneNumber = obj.getString("phoneNumber")
+                        user.hasPhoto = obj.getBoolean("hasPhoto")
+                        user.profileComplete = obj.getBoolean("profileComplete")
+                        user.gender = obj.getString("gender")
+                        user.age = obj.getInt("age")
+                        user.partnerGender = obj.getString("partnerGender")
+                        user.partnerMaxAge = obj.getInt("partnerMaxAge")
+                        user.partnerMinAge = obj.getInt("partnerMinAge")
+                    })
+                }
             }
         }
     }

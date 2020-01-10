@@ -1,5 +1,5 @@
 package com.example.foodbuddyremastered.events
 
 class ButtonPressedEvent {
-    val buttonId: Int = -1
+    var buttonId: Int = -1
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    tools:ignore="RtlSymmetry">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv_conversation_photo"
+        app:cardCornerRadius="36dp"
+        app:cardElevation="8dp"
+        android:outlineSpotShadowColor="@color/deepBlue"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:id="@+id/iv_conversation_photo"
+            android:scaleType="centerCrop"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/cv_conversation_photo"
+        android:layout_marginStart="16dp"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_top"
+        android:paddingEnd="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/tv_timestamp"
+            android:layout_marginEnd="12dp"
+            android:id="@+id/tv_conversation_user_name"
+            android:textSize="20sp"
+            android:fontFamily="@font/nunito_semibold"
+            android:textColor="@color/md_black"
+            tools:text="Dan Jennifer"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_timestamp"
+            tools:text="12:45 AM"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/md_grey_600"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/nunito_light"
+            />
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:layout_below="@id/rl_top"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingEnd="16dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_last_message"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/rl_unread_messages"
+                tools:text="Hey ! Wanna hang out ?"
+                android:textSize="16sp"
+                android:textColor="@color/md_grey_700"
+                android:fontFamily="@font/nunito"
+                android:layout_centerVertical="true"
+                />
+
+            <RelativeLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/rl_unread_messages"
+                android:elevation="8dp"
+                android:clipToPadding="false"
+                android:background="@drawable/deep_blue_round"
+                android:outlineAmbientShadowColor="@color/deepBlue"
+                android:outlineSpotShadowColor="@color/deepBlue"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_unread_messages"
+                    android:textColor="@color/md_white"
+                    android:fontFamily="@font/nunito_light"
+                    tools:text="22"
+                    android:textSize="13sp"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+</RelativeLayout>
+
+</RelativeLayout>

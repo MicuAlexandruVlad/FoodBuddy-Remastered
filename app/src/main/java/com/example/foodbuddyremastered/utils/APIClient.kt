@@ -1,12 +1,15 @@
 package com.example.foodbuddyremastered.utils
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.example.foodbuddyremastered.constants.Actions
 import com.example.foodbuddyremastered.constants.ApiUrls
 import com.example.foodbuddyremastered.constants.ObjectTypes
 import com.example.foodbuddyremastered.events.ObjectUploadedEvent
 import com.example.foodbuddyremastered.events.ResponseEvent
 import com.example.foodbuddyremastered.models.User
+import com.example.foodbuddyremastered.models.UserFilter
+import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
@@ -71,6 +74,35 @@ class APIClient: ApiInterface {
                     it.action = Actions.AUTH_USER_EMAIL_RESPONSE
                     it.status = status
                     it.payload = user
+                })
+            }
+        })
+    }
+
+    override fun discoverUsers(filter: UserFilter, list: MutableLiveData<List<User>>, user: User) {
+        val params = JsonUtils.discoverFilterToParams(filter)
+        params.put("userEmail", user.email)
+        params.put("userAge", user.age)
+        params.put("userGender", user.gender)
+
+        Log.d(TAG, "discoverUsers: Params -> ${ Gson().toJson(params) }")
+
+        client.get(ApiUrls.DISCOVER_USERS, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                val status = response!!.getInt("status")
+
+                Log.d(TAG, "discoverUsers: Response -> $response")
+
+                // TODO: this is not finished - needs TESTING
+
+                list.postValue(ArrayList<User>().apply {
+                    addAll(JsonUtils.jsonArrayToUserArray(response.getJSONArray("data")))
                 })
             }
         })

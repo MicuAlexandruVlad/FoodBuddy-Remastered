@@ -1,13 +1,77 @@
 package com.example.foodbuddyremastered.views
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import com.example.foodbuddyremastered.R
+import com.example.foodbuddyremastered.adapters.ViewPagerAdapter
+import com.example.foodbuddyremastered.constants.ButtonIds
+import com.example.foodbuddyremastered.constants.RequestCodes
+import com.example.foodbuddyremastered.events.ButtonPressedEvent
+import com.example.foodbuddyremastered.models.User
+import com.example.foodbuddyremastered.models.UserFilter
+import com.example.foodbuddyremastered.utils.NotifUtils
+import com.example.foodbuddyremastered.viewmodels.MainActivityViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var  viewModel: MainActivityViewModel
+    private lateinit var pager: ViewPager
+
+    private lateinit var notifUtils: NotifUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        EventBus.getDefault().register(this)
+        notifUtils = NotifUtils(this)
+
+        viewModel = ViewModelProviders.of(this)[MainActivityViewModel::class.java]
+
+        viewModel.currentUser = intent.getSerializableExtra("currentUser") as User
+
+        pager = find(R.id.pager)
+        pager.adapter = ViewPagerAdapter(supportFragmentManager,
+            Bundle().apply {
+               putSerializable("currentUser", viewModel.currentUser)
+        }, Bundle().apply {
+                putSerializable("currentUser", viewModel.currentUser)
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onButtonEvent(buttonPressedEvent: ButtonPressedEvent) {
+        when (buttonPressedEvent.buttonId) {
+            ButtonIds.NAV_TO_DISCOVER -> pager.currentItem = 1
+            ButtonIds.NAV_TO_CONVERSATIONS -> pager.currentItem = 0
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            when (requestCode) {
+                RequestCodes.FILTER_ACTIVITY -> {
+                    val newFilter = data.getSerializableExtra("filter") as UserFilter
+                    viewModel.discoverUsers(newFilter)
+                    notifUtils.createToast("Filter updated").show()
+                }
+            }
+        }
+
     }
 }

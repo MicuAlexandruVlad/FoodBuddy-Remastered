@@ -8,6 +8,8 @@ class ApiUrls {
         const val REGISTER_USER_EMAIL = BASE_URL + USER_PATH + "register-user-email/"
         const val AUTH_USER_EMAIL = BASE_URL + USER_PATH + "auth-user-email/"
 
+        const val DISCOVER_USERS = BASE_URL + USER_PATH + "discover-users/"
+
 
     }
 }

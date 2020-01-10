@@ -6,6 +6,8 @@
 
     <color name="female">#D81B60</color>
     <color name="male">#0090C9</color>
+    
+    <color name="deepBlue">#0459B9</color>
 
     <color name="onyx">#3A2E39</color>
 </resources>

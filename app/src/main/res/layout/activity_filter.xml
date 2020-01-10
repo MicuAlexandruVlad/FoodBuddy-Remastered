@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sv_parent"
+    android:background="@color/md_white"
+    android:fillViewport="true"
+    tools:context=".views.FilterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title"
+            android:textSize="24sp"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Filter"
+            android:textColor="@color/md_black"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_gender_label"
+            android:text="Gender"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_light"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:id="@+id/ll_gender">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/ll_male"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_male_off"
+                        android:src="@drawable/male"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_male_on"
+                        android:src="@drawable/male_colorized"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_female"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp"
+                    android:layout_marginStart="8dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/iv_female_off"
+                        android:src="@drawable/female"
+                        android:layout_centerInParent="true"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:id="@+id/iv_female_on"
+                        android:src="@drawable/female_colorized"
+                        android:layout_centerInParent="true"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/met_city"
+            android:inputType="textCapWords"
+            android:textColor="@color/md_black"
+            android:layout_marginTop="16dp"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="City"
+            android:hint="City"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/met_country"
+            android:inputType="textCapWords"
+            android:textColor="@color/md_black"
+            android:layout_marginTop="16dp"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Country"
+            android:hint="Country"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_min_age_label"
+            android:text="Min Age"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_light"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <com.xw.repo.BubbleSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsb_min_age"
+            app:bsb_second_track_color="@color/onyx"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:bsb_section_count="1"
+            app:bsb_min="18"
+            app:bsb_max="80"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_show_section_text="true"
+            app:bsb_show_thumb_text="true"
+            app:bsb_thumb_text_size="18sp"
+            app:bsb_touch_to_seek="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_max_age_label"
+            android:text="Max Age"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_light"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <com.xw.repo.BubbleSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsb_max_age"
+            app:bsb_second_track_color="@color/onyx"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:bsb_section_count="1"
+            app:bsb_min="18"
+            app:bsb_max="80"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_show_section_text="true"
+            app:bsb_show_thumb_text="true"
+            app:bsb_thumb_text_size="18sp"
+            app:bsb_touch_to_seek="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_zodiac_label"
+                android:layout_centerVertical="true"
+                android:text="Zodiac sign"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/nunito_light"
+                android:textColor="@color/md_grey_600"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/iv_add_signs"
+                android:src="@drawable/add"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:tint="@color/deepBlue"
+                />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_zodiac_signs"
+            android:layout_marginTop="4dp"
+            android:nestedScrollingEnabled="false"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_eat_times_label"
+            android:text="Eat Times"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_light"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:paddingTop="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:letterSpacing=".4"
+                android:layout_weight="1.3"
+                android:inputType="time"
+                android:textStyle="bold"
+                app:met_textColor="@color/onyx"
+                android:id="@+id/met_start"
+                android:hint="Start"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Start"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:text="-"
+                android:textSize="20sp"
+                android:textColor="@color/md_black"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:met_textColor="@color/onyx"
+                android:textAlignment="center"
+                android:layout_weight="1.3"
+                android:inputType="time"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:letterSpacing=".4"
+                android:id="@+id/met_end"
+                android:hint="End"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="End"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_tolerance_label"
+                android:layout_centerVertical="true"
+                android:text="Tolerance"
+                android:fontFamily="@font/nunito_light"
+                android:textColor="@color/md_grey_600"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:id="@+id/iv_tolerance_info"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/info"
+                />
+
+        </RelativeLayout>
+
+        <com.xw.repo.BubbleSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsb_tolerance"
+            app:bsb_second_track_color="@color/onyx"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:bsb_section_count="1"
+            app:bsb_min="0"
+            app:bsb_max="60"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_show_section_text="true"
+            app:bsb_show_thumb_text="true"
+            app:bsb_thumb_text_size="18sp"
+            app:bsb_touch_to_seek="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:clipToPadding="false"
+                android:paddingTop="32dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/close"
+                    android:id="@+id/fab_cancel"
+                    app:backgroundTint="@color/onyx"
+                    android:foregroundTint="@color/onyx"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/done"
+                    android:id="@+id/fab_done"
+                    app:backgroundTint="@color/onyx"
+                    android:foregroundTint="@color/onyx"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

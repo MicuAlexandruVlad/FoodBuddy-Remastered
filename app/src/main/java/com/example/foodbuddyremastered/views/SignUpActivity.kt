@@ -41,6 +41,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var confirmPassword: MaterialEditText
     private lateinit var firstName: MaterialEditText
     private lateinit var lastName: MaterialEditText
+    private lateinit var phoneNumber: MaterialEditText
     private lateinit var city: MaterialEditText
     private lateinit var country: MaterialEditText
     private lateinit var userAge: BubbleSeekBar
@@ -188,6 +189,7 @@ class SignUpActivity : AppCompatActivity() {
                     user.password = password.text.toString()
                     user.firstName = firstName.text.toString()
                     user.lastName = lastName.text.toString()
+                    user.phoneNumber = phoneNumber.text.toString()
                     user.city = city.text.toString()
                     user.country = country.text.toString()
                     user.age = userAge.progress
@@ -240,6 +242,7 @@ class SignUpActivity : AppCompatActivity() {
         confirmPassword = find(R.id.met_confirm_password)
         firstName = find(R.id.met_first_name)
         lastName = find(R.id.met_last_name)
+        phoneNumber = find(R.id.met_phone_number)
         city = find(R.id.met_city)
         country = find(R.id.met_country)
         userAge = find(R.id.bsb_age)
