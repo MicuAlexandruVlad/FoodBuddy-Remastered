@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.core.app.ActivityCompat
 import androidx.core.app.DialogCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -22,7 +23,7 @@ import com.google.gson.Gson
 import org.jetbrains.anko.find
 import kotlin.math.sign
 
-class ZodiacSignDialog(private val activity: FilterActivity): Dialog(activity) {
+class ZodiacSignDialog(private val owner: LifecycleOwner, context: Context): Dialog(context) {
 
     companion object {
         const val TAG = "ZodiacSignDialog"
@@ -36,7 +37,8 @@ class ZodiacSignDialog(private val activity: FilterActivity): Dialog(activity) {
     private lateinit var selectedSigns: ArrayList<ZodiacSign>
     private lateinit var initialList: ArrayList<ZodiacSign>
     var isDone = false
-    var isCancel = false
+    var pickOne = false
+    lateinit var selectedSign: ZodiacSign
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,26 +54,31 @@ class ZodiacSignDialog(private val activity: FilterActivity): Dialog(activity) {
         initialList.addAll(ZodiacSign.getList(context))
 
         adapter = ZodiacSignAdapter(initialList, context)
+        adapter.pickOne = pickOne
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        adapter.signs.observe(activity, Observer<ZodiacSign> { sign ->
+        adapter.signs.observe(owner, Observer<ZodiacSign> { sign ->
             Log.d(TAG, "Observed change, action -> ${sign.action}")
-            when (sign.action) {
-                Actions.ADD_ZODIAC_SIGN -> {
-                    selectedSigns.add(sign)
-                    Log.d(TAG, "Signs -> ${selectedSigns.size}")
-                }
+            if (pickOne) {
+                selectedSigns.clear()
+                selectedSigns.add(sign)
+            } else {
+                when (sign.action) {
+                    Actions.ADD_ZODIAC_SIGN -> {
+                        selectedSigns.add(sign)
+                        Log.d(TAG, "Signs -> ${selectedSigns.size}")
+                    }
 
-                Actions.REMOVE_ZODIAC_SIGN -> {
-                    removeSign(sign.name)
-                    Log.d(TAG, "Signs -> ${selectedSigns.size}")
+                    Actions.REMOVE_ZODIAC_SIGN -> {
+                        removeSign(sign.name)
+                        Log.d(TAG, "Signs -> ${selectedSigns.size}")
+                    }
                 }
             }
         })
 
         cancel.setOnClickListener {
-            isCancel = true
             dismiss()
         }
 

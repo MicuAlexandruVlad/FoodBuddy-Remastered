@@ -15,7 +15,7 @@ class User: Serializable {
     var gender: String = ""
     var age: Int = 0
     var zodiacSign: String = ""
-    val eatTimes: ArrayList<EatTimes> = ArrayList<EatTimes>()
+    val eatTimes: ArrayList<EatTimes> = ArrayList()
     var partnerGender: String = ""
     var partnerMinAge: Int = 0
     var partnerMaxAge: Int = 0

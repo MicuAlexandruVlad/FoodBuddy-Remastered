@@ -13,24 +13,27 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.foodbuddyremastered.R
 import com.example.foodbuddyremastered.constants.Actions
-import com.example.foodbuddyremastered.models.Conversation
-import com.example.foodbuddyremastered.models.TextMessage
-import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.models.ZodiacSign
+import com.google.gson.Gson
 import org.jetbrains.anko.find
-import org.jetbrains.anko.image
-import org.jetbrains.anko.imageBitmap
 
 class ZodiacSignAdapter(private var items: ArrayList<ZodiacSign>,
                         private var context: Context?
 ) : RecyclerView.Adapter<ZodiacSignAdapter.ViewHolder>() {
 
-    private val TAG = "ZodiacSignAdapter"
+    companion object {
+        const val TAG = "ZodiacSignAdapter"
+    }
+
     val signs = MutableLiveData<ZodiacSign>()
     var displaySelected = true
+    var pickOne = false
+
+    private var activeIndexes = ArrayList<Int>()
+
+    private var canReset = false
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.sign_list_item, p0, false)
@@ -52,17 +55,26 @@ class ZodiacSignAdapter(private var items: ArrayList<ZodiacSign>,
         if (displaySelected) {
             if (zodiacSign.selected) {
                 holder.selected.visibility = View.VISIBLE
+            } else {
+                holder.selected.visibility = View.GONE
             }
         }
 
         holder.parent.setOnClickListener {
             Log.d(TAG, "Clicked on item at $position")
 
+            if (displaySelected) {
+                activeIndexes.add(position)
+            }
+
             if (!zodiacSign.selected) {
                 zodiacSign.selected = true
                 zodiacSign.action = Actions.ADD_ZODIAC_SIGN
                 if (displaySelected) {
                     holder.selected.visibility = View.VISIBLE
+                }
+                if (pickOne && canReset) {
+                    resetList()
                 }
             } else {
                 zodiacSign.selected = false
@@ -71,6 +83,8 @@ class ZodiacSignAdapter(private var items: ArrayList<ZodiacSign>,
                     holder.selected.visibility = View.GONE
                 }
             }
+
+            canReset = true
 
             signs.postValue(zodiacSign)
         }
@@ -114,6 +128,11 @@ class ZodiacSignAdapter(private var items: ArrayList<ZodiacSign>,
             else -> ContextCompat
                 .getDrawable(context!!, R.drawable.virgo) as Drawable
         }
+    }
+
+    private fun resetList() {
+        items[activeIndexes[activeIndexes.size - 2]].selected = false
+        notifyItemChanged(activeIndexes[activeIndexes.size - 2])
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {

@@ -99,7 +99,7 @@ class FilterActivity : AppCompatActivity() {
         }
 
         addSigns.setOnClickListener {
-            val dialog = ZodiacSignDialog(this)
+            val dialog = ZodiacSignDialog(this, this)
             dialog.create()
 
             dialog.setSelectedSigns(selectedSigns)

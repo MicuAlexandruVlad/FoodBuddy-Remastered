@@ -1,6 +1,9 @@
 package com.example.foodbuddyremastered.utils
 
+import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.foodbuddyremastered.constants.Actions
 import com.example.foodbuddyremastered.constants.ApiUrls
@@ -26,7 +29,7 @@ class APIClient: ApiInterface {
 
     private val client = AsyncHttpClient()
 
-    override fun registerUserEmail(user: User) {
+    override fun registerUserEmail(user: User, context: Context) {
         val params = JsonUtils.userToReqParams(user)
 
         client.post(ApiUrls.REGISTER_USER_EMAIL, params, object : JsonHttpResponseHandler() {
@@ -38,11 +41,12 @@ class APIClient: ApiInterface {
                 super.onSuccess(statusCode, headers, response)
 
                 val status = response!!.getInt("status")
-                val objectUploadedEvent = ObjectUploadedEvent()
-                objectUploadedEvent.objType = ObjectTypes.USER
-                objectUploadedEvent.status = status
 
-                emitObjectUploadedEvent(objectUploadedEvent)
+                if (status == HttpStatus.SC_CREATED) {
+                    Toast.makeText(context, "Account created", Toast.LENGTH_SHORT).show()
+
+                    ((context) as Activity).finish()
+                }
             }
         })
     }
@@ -98,8 +102,6 @@ class APIClient: ApiInterface {
                 val status = response!!.getInt("status")
 
                 Log.d(TAG, "discoverUsers: Response -> $response")
-
-                // TODO: this is not finished - needs TESTING
 
                 list.postValue(ArrayList<User>().apply {
                     addAll(JsonUtils.jsonArrayToUserArray(response.getJSONArray("data")))

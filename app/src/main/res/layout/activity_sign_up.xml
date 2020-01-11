@@ -1,471 +1,543 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:id="@+id/sv_parent"
-    tools:context=".views.SignUpActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.foodbuddyremastered.models.User"/>
+
+        <variable
+            name="isMaleOn"
+            type="Boolean" />
+
+        <variable
+            name="isFemaleOn"
+            type="Boolean"
+            />
+        <variable
+            name="viewModel"
+            type="com.example.foodbuddyremastered.viewmodels.SignUpViewModel" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_log_in_title"
-            android:textSize="24sp"
-            android:textColor="@color/onyx"
-            android:textStyle="bold"
-            android:text="Welcome"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="16dp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_sub_title"
-            android:text="Please complete the following form"
-            android:textColor="@color/md_blue_grey_600"
-            android:textSize="16sp"
-            android:layout_below="@id/tv_log_in_title"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/tv_sub_title"
-            android:layout_marginTop="52dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Email"
-            android:hint="Email"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_password"
-            android:inputType="textPassword"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_email"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Password"
-            android:hint="Password"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_confirm_password"
-            android:inputType="textPassword"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_password"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Confirm Password"
-            android:hint="Confirm Password"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_first_name"
-            android:inputType="textCapWords"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_confirm_password"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="First Name"
-            android:hint="First Name"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_last_name"
-            android:inputType="textCapWords"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_first_name"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Last Name"
-            android:hint="Last Name"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_phone_number"
-            android:inputType="phone"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_last_name"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Phone Number (Optional)"
-            android:hint="Phone Number (Optional)"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_city"
-            android:inputType="textCapWords"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_phone_number"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="City"
-            android:hint="City"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/met_country"
-            android:inputType="textCapWords"
-            android:textColor="@color/md_black"
-            android:layout_below="@id/met_city"
-            android:layout_marginTop="16dp"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="Country"
-            android:hint="Country"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_age_label"
-            android:textColor="@color/md_grey_500"
-            android:layout_below="@id/met_country"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Age"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <com.xw.repo.BubbleSeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bsb_age"
-            app:bsb_second_track_color="@color/onyx"
-            android:layout_below="@id/tv_age_label"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:bsb_section_count="1"
-            app:bsb_min="18"
-            app:bsb_max="80"
-            app:bsb_section_text_position="below_section_mark"
-            app:bsb_show_section_mark="true"
-            app:bsb_show_section_text="true"
-            app:bsb_show_thumb_text="true"
-            app:bsb_thumb_text_size="18sp"
-            app:bsb_touch_to_seek="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_gender_label"
-            android:textColor="@color/md_grey_500"
-            android:layout_below="@id/bsb_age"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Gender"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:id="@+id/ll_gender"
-            android:layout_below="@id/tv_gender_label">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:id="@+id/ll_male"
-                android:animateLayoutChanges="true"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/iv_male_off"
-                    android:src="@drawable/male"
-                    android:translationZ="0dp"
-                    />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/iv_male_on"
-                    android:src="@drawable/male_colorized"
-                    android:translationZ="1dp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ll_female"
-                android:animateLayoutChanges="true"
-                android:padding="16dp"
-                android:layout_marginStart="8dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/iv_female_off"
-                    android:src="@drawable/female"
-                    android:layout_centerInParent="true"
-                    android:translationZ="0dp"
-                    />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:id="@+id/iv_female_on"
-                    android:src="@drawable/female_colorized"
-                    android:layout_centerInParent="true"
-                    android:translationZ="1dp"
-                    />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_partner_gender_label"
-            android:textColor="@color/md_grey_500"
-            android:layout_below="@id/ll_gender"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Partner Gender"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:id="@+id/rl_partner_gender"
-            android:layout_below="@id/tv_partner_gender_label">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:id="@+id/rl_partner_male"
-                android:animateLayoutChanges="true"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/iv_partner_male_off"
-                    android:src="@drawable/male"
-                    android:translationZ="0dp"
-                    />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/iv_partner_male_on"
-                    android:src="@drawable/male_colorized"
-                    android:translationZ="1dp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rl_partner_female"
-                android:animateLayoutChanges="true"
-                android:padding="16dp"
-                android:layout_marginStart="8dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/iv_partner_female_off"
-                    android:src="@drawable/female"
-                    android:layout_centerInParent="true"
-                    android:translationZ="0dp"
-                    />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:id="@+id/iv_partner_female_on"
-                    android:src="@drawable/female_colorized"
-                    android:layout_centerInParent="true"
-                    android:translationZ="1dp"
-                    />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_min_age_label"
-            android:textColor="@color/md_grey_500"
-            android:layout_below="@id/rl_partner_gender"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Partner Min Age"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <com.xw.repo.BubbleSeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bsb_partner_min_age"
-            app:bsb_second_track_color="@color/onyx"
-            android:layout_below="@id/tv_min_age_label"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:bsb_section_count="1"
-            app:bsb_min="18"
-            app:bsb_max="80"
-            app:bsb_section_text_position="below_section_mark"
-            app:bsb_show_section_text="true"
-            app:bsb_show_thumb_text="true"
-            app:bsb_thumb_text_size="18sp"
-            app:bsb_touch_to_seek="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_max_age_label"
-            android:textColor="@color/md_grey_500"
-            android:layout_below="@id/bsb_partner_min_age"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Partner Max Age"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
-
-        <com.xw.repo.BubbleSeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bsb_partner_max_age"
-            app:bsb_second_track_color="@color/onyx"
-            android:layout_below="@id/tv_max_age_label"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:bsb_section_count="1"
-            app:bsb_min="18"
-            app:bsb_max="80"
-            app:bsb_section_text_position="below_section_mark"
-            app:bsb_show_section_text="true"
-            app:bsb_show_thumb_text="true"
-            app:bsb_thumb_text_size="18sp"
-            app:bsb_touch_to_seek="true"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:id="@+id/sv_parent"
+        tools:context=".views.SignUpActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rl_add_eat_times"
-            android:layout_below="@id/bsb_partner_max_age"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:id="@+id/tv_eat_times"
-                android:layout_centerVertical="true"
+                android:id="@+id/tv_log_in_title"
+                android:textSize="24sp"
+                android:textColor="@color/onyx"
+                android:textStyle="bold"
+                android:text="Welcome"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_sub_title"
+                android:text="Please complete the following form"
+                android:textColor="@color/md_blue_grey_600"
+                android:textSize="16sp"
+                android:layout_below="@id/tv_log_in_title"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.email }"
+                android:id="@+id/met_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/tv_sub_title"
+                android:layout_marginTop="52dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Email"
+                android:hint="Email"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.password }"
+                android:id="@+id/met_password"
+                android:inputType="textPassword"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_email"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Password"
+                android:hint="Password"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.confirmPass }"
+                android:id="@+id/met_confirm_password"
+                android:inputType="textPassword"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_password"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Confirm Password"
+                android:hint="Confirm Password"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.firstName }"
+                android:id="@+id/met_first_name"
+                android:inputType="textCapWords"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_confirm_password"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="First Name"
+                android:hint="First Name"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.lastName }"
+                android:id="@+id/met_last_name"
+                android:inputType="textCapWords"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_first_name"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Last Name"
+                android:hint="Last Name"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.phoneNumber }"
+                android:id="@+id/met_phone_number"
+                android:inputType="phone"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_last_name"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Phone Number (Optional)"
+                android:hint="Phone Number (Optional)"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.city }"
+                android:id="@+id/met_city"
+                android:inputType="textCapWords"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_phone_number"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="City"
+                android:hint="City"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={ viewModel.user.country }"
+                android:id="@+id/met_country"
+                android:inputType="textCapWords"
+                android:textColor="@color/md_black"
+                android:layout_below="@id/met_city"
+                android:layout_marginTop="16dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Country"
+                android:hint="Country"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_age_label"
                 android:textColor="@color/md_grey_500"
-                android:text="When do you normally eat ?"
+                android:layout_below="@id/met_country"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Age"
                 android:textSize="16sp"
                 tools:ignore="HardcodedText" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:id="@+id/iv_add_eat_times"
-                android:src="@drawable/add"
-                android:tint="@color/colorPrimary"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+            <com.xw.repo.BubbleSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bsb_age"
+                app:bsb_second_track_color="@color/onyx"
+                android:layout_below="@id/tv_age_label"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:bsb_section_count="1"
+                app:bsb_min="18"
+                app:bsb_max="80"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_mark="true"
+                app:bsb_show_section_text="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_thumb_text_size="18sp"
+                app:bsb_touch_to_seek="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_add_zodiac_sign"
+                android:layout_below="@id/bsb_age"
+                android:layout_marginTop="16dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_zodiac_sign_label"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/md_grey_500"
+                    android:text="Zodiac Sign"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/iv_add_zodiac_sign"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/add"
+                    android:tint="@color/deepBlue"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_selected_sign"
+                android:layout_below="@id/rl_add_zodiac_sign"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_gender_label"
+                android:textColor="@color/md_grey_500"
+                android:layout_below="@id/rv_selected_sign"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Gender"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:id="@+id/ll_gender"
+                android:layout_below="@id/tv_gender_label">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/ll_male"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_male_off"
+                        android:src="@drawable/male"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_male_on"
+                        android:src="@drawable/male_colorized"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_female"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp"
+                    android:layout_marginStart="8dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/iv_female_off"
+                        android:src="@drawable/female"
+                        android:layout_centerInParent="true"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:id="@+id/iv_female_on"
+                        android:src="@drawable/female_colorized"
+                        android:layout_centerInParent="true"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_partner_gender_label"
+                android:textColor="@color/md_grey_500"
+                android:layout_below="@id/ll_gender"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Partner Gender"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:id="@+id/rl_partner_gender"
+                android:layout_below="@id/tv_partner_gender_label">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/rl_partner_male"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_partner_male_off"
+                        android:src="@drawable/male"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_partner_male_on"
+                        android:src="@drawable/male_colorized"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rl_partner_female"
+                    android:animateLayoutChanges="true"
+                    android:padding="16dp"
+                    android:layout_marginStart="8dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/iv_partner_female_off"
+                        android:src="@drawable/female"
+                        android:layout_centerInParent="true"
+                        android:translationZ="0dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:id="@+id/iv_partner_female_on"
+                        android:src="@drawable/female_colorized"
+                        android:layout_centerInParent="true"
+                        android:translationZ="1dp"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_min_age_label"
+                android:textColor="@color/md_grey_500"
+                android:layout_below="@id/rl_partner_gender"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Partner Min Age"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <com.xw.repo.BubbleSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bsb_partner_min_age"
+                app:bsb_second_track_color="@color/onyx"
+                android:layout_below="@id/tv_min_age_label"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:bsb_section_count="1"
+                app:bsb_min="18"
+                app:bsb_max="80"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_text="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_thumb_text_size="18sp"
+                app:bsb_touch_to_seek="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_max_age_label"
+                android:textColor="@color/md_grey_500"
+                android:layout_below="@id/bsb_partner_min_age"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Partner Max Age"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <com.xw.repo.BubbleSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bsb_partner_max_age"
+                app:bsb_second_track_color="@color/onyx"
+                android:layout_below="@id/tv_max_age_label"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:bsb_section_count="1"
+                app:bsb_min="18"
+                app:bsb_max="80"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_text="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_thumb_text_size="18sp"
+                app:bsb_touch_to_seek="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_add_eat_times"
+                android:layout_below="@id/bsb_partner_max_age"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/tv_eat_times"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/md_grey_500"
+                    android:text="When do you normally eat ?"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/iv_add_eat_times"
+                    android:src="@drawable/add"
+                    android:tint="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:id="@+id/rv_eat_times"
+                android:layout_below="@id/rl_add_eat_times"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSignUp()}"
+                android:id="@+id/btn_sign_up"
+                android:layout_below="@id/rv_eat_times"
+                android:background="@drawable/btn_round_onyx"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:text="Sign up"
+                android:textSize="16sp"
+                android:textColor="@color/md_white"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/rv_eat_times"
-            android:layout_below="@id/rl_add_eat_times"
-            />
+    </ScrollView>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_sign_up"
-            android:layout_below="@id/rv_eat_times"
-            android:background="@drawable/btn_round_onyx"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
-            android:text="Sign up"
-            android:textSize="16sp"
-            android:textColor="@color/md_white"
-            tools:ignore="HardcodedText" />
-
-    </RelativeLayout>
-
-</ScrollView>
+</layout>
