@@ -9,6 +9,10 @@
         <variable
             name="viewModel"
             type="com.example.foodbuddyremastered.viewmodels.LoginViewModel" />
+
+        <variable
+            name="rememberMe"
+            type="Boolean" />
     </data>
 
     <RelativeLayout
@@ -74,6 +78,8 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={ rememberMe }"
+                android:onClick="@{ () -> viewModel.onRemember(rememberMe) }"
                 android:id="@+id/cb_remember_me"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"

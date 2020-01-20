@@ -1,11 +1,5 @@
 package com.example.foodbuddyremastered.models
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
-import com.example.foodbuddyremastered.R
 import java.io.Serializable
 
 class ZodiacSign : Serializable {
@@ -18,7 +12,7 @@ class ZodiacSign : Serializable {
 
     companion object {
 
-        fun getList(context: Context): ArrayList<ZodiacSign> {
+        fun getList(): ArrayList<ZodiacSign> {
             return ArrayList<ZodiacSign>().apply {
                 add(ZodiacSign().also {
                     it.name = "Aquarius"

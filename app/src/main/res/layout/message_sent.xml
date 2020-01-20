@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="16dp"
+    android:paddingStart="48dp"
+    android:background="@color/md_white"
+    android:paddingBottom="8dp"
+    android:paddingTop="12dp"
+    android:clipToPadding="false"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_body"
+        android:background="@drawable/message_sent"
+        android:layout_alignParentEnd="true"
+        android:maxWidth="270dp"
+        android:minWidth="132dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_message_text"
+            tools:text="What's up ?"
+            android:textColor="@color/md_black"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="12dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_timestamp"
+        android:layout_below="@id/rl_body"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/md_grey_500"
+        tools:text="2:32 PM"
+        android:textSize="15sp"
+        android:fontFamily="@font/nunito_light"
+        android:layout_alignStart="@id/rl_body"
+        />
+
+</RelativeLayout>

@@ -1,8 +1,11 @@
 package com.example.foodbuddyremastered.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
 class User: Serializable {
+
     var id: String = ""
     var photoId: String = ""
     var email: String = ""
@@ -23,4 +26,5 @@ class User: Serializable {
     var hasPhoto: Boolean = false
     var profileComplete: Boolean = false
 
+    lateinit var compressedImage: CompressedImage
 }

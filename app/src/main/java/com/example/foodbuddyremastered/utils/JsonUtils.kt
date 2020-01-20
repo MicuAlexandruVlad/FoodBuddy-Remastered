@@ -28,6 +28,8 @@ class JsonUtils {
                 put("partnerMinAge", user.partnerMinAge)
                 put("partnerMaxAge", user.partnerMaxAge)
                 put("partnerGender", user.partnerGender)
+                put("encodedImageData", user.compressedImage.encodedValue)
+                put("imageName", user.compressedImage.imageName)
             }
         }
 

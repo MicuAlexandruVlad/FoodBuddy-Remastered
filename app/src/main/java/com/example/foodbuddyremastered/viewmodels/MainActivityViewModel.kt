@@ -1,10 +1,11 @@
 package com.example.foodbuddyremastered.viewmodels
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.models.UserFilter
+import com.example.foodbuddyremastered.models.ZodiacSign
 import com.example.foodbuddyremastered.utils.APIClient
 
 class MainActivityViewModel : ViewModel() {
@@ -31,6 +32,7 @@ class MainActivityViewModel : ViewModel() {
             filter.gender = currentUser.partnerGender
             filter.city = currentUser.city
             filter.country = currentUser.country
+            filter.zodiacSigns.addAll(ZodiacSign.getList())
         }
     }
 

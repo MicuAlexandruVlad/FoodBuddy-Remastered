@@ -160,7 +160,12 @@ class FilterActivity : AppCompatActivity() {
                 filter.tolerance = tolerance.progress
                 filter.zodiacSigns.apply {
                     clear()
-                    addAll(selectedSigns)
+                    // if no zodiac signs selected add all so the server looks for all zodiac signs
+                    if (selectedSigns.isEmpty()) {
+                        addAll(ZodiacSign.getList())
+                    } else {
+                        addAll(selectedSigns)
+                    }
                 }
 
                 if (isMale && !isFemale) {

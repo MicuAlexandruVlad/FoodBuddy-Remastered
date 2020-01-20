@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:id="@+id/sv_parent"
+        android:background="@color/md_white"
         tools:context=".views.SignUpActivity">
 
         <RelativeLayout
@@ -191,9 +192,93 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_age_label"
+                android:id="@+id/tv_profile_photo_label"
                 android:textColor="@color/md_grey_500"
                 android:layout_below="@id/met_country"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Profile Photo"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_photo"
+                android:layout_below="@id/tv_profile_photo_label"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:clipToPadding="false"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    android:id="@+id/cv_user_photo"
+                    >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/iv_user_photo"
+                        android:scaleType="centerCrop"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{ () -> viewModel.onAddPhoto() }"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/cv_user_photo"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/deep_blue_round"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:elevation="4dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginEnd="12dp"
+                        android:id="@+id/iv_photo_btn_icon"
+                        android:src="@drawable/add"
+                        android:tint="@color/md_white"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_btn_text"
+                        android:layout_toEndOf="@id/iv_photo_btn_icon"
+                        tools:text="Add photo"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/md_white"
+                        android:fontFamily="@font/nunito_bold"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_age_label"
+                android:textColor="@color/md_grey_500"
+                android:layout_below="@id/rl_photo"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:text="Age"

@@ -21,7 +21,7 @@ import cz.msebera.android.httpclient.HttpStatus
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
-class APIClient: ApiInterface {
+class APIClient {
 
     companion object {
         const val TAG = "APIClient"
@@ -29,7 +29,7 @@ class APIClient: ApiInterface {
 
     private val client = AsyncHttpClient()
 
-    override fun registerUserEmail(user: User, context: Context) {
+    fun registerUserEmail(user: User, context: Context) {
         val params = JsonUtils.userToReqParams(user)
 
         client.post(ApiUrls.REGISTER_USER_EMAIL, params, object : JsonHttpResponseHandler() {
@@ -51,7 +51,7 @@ class APIClient: ApiInterface {
         })
     }
 
-    override fun authUserEmail(email: String, password: String) {
+    fun authUserEmail(email: String, password: String, res: MutableLiveData<ResponseEvent>) {
         val params = RequestParams().apply {
             put("email", email)
             put("password", password)
@@ -72,18 +72,18 @@ class APIClient: ApiInterface {
                     User()
                 }
 
-                Log.d(TAG, "authUserEmail: Response -> $response")
-
-                emitResponseEvent(ResponseEvent().also {
+                res.postValue(ResponseEvent().also {
                     it.action = Actions.AUTH_USER_EMAIL_RESPONSE
                     it.status = status
                     it.payload = user
                 })
+
+                Log.d(TAG, "authUserEmail: Response -> $response")
             }
         })
     }
 
-    override fun discoverUsers(filter: UserFilter, list: MutableLiveData<List<User>>, user: User) {
+    fun discoverUsers(filter: UserFilter, list: MutableLiveData<List<User>>, user: User) {
         val params = JsonUtils.discoverFilterToParams(filter)
         params.put("userEmail", user.email)
         params.put("userAge", user.age)

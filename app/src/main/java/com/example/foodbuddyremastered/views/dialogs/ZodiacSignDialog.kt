@@ -1,15 +1,10 @@
 package com.example.foodbuddyremastered.views.dialogs
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import androidx.core.app.ActivityCompat
-import androidx.core.app.DialogCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +13,7 @@ import com.example.foodbuddyremastered.R
 import com.example.foodbuddyremastered.adapters.ZodiacSignAdapter
 import com.example.foodbuddyremastered.constants.Actions
 import com.example.foodbuddyremastered.models.ZodiacSign
-import com.example.foodbuddyremastered.views.FilterActivity
-import com.google.gson.Gson
 import org.jetbrains.anko.find
-import kotlin.math.sign
 
 class ZodiacSignDialog(private val owner: LifecycleOwner, context: Context): Dialog(context) {
 
@@ -51,7 +43,7 @@ class ZodiacSignDialog(private val owner: LifecycleOwner, context: Context): Dia
 
         selectedSigns = ArrayList()
         initialList = ArrayList()
-        initialList.addAll(ZodiacSign.getList(context))
+        initialList.addAll(ZodiacSign.getList())
 
         adapter = ZodiacSignAdapter(initialList, context)
         adapter.pickOne = pickOne

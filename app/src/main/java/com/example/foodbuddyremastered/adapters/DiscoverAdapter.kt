@@ -2,17 +2,17 @@ package com.example.foodbuddyremastered.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.foodbuddyremastered.R
-import com.example.foodbuddyremastered.models.Conversation
-import com.example.foodbuddyremastered.models.TextMessage
 import com.example.foodbuddyremastered.models.User
+import com.example.foodbuddyremastered.views.ChatActivity
 import org.jetbrains.anko.find
 
 class DiscoverAdapter(private var items: ArrayList<User>,
@@ -40,9 +40,17 @@ class DiscoverAdapter(private var items: ArrayList<User>,
         holder.age.text = "${ user.age } years"
         holder.city.text = user.city
 
+        holder.parent.setOnClickListener {
+            Intent(context, ChatActivity::class.java).apply {
+                putExtra("conversationUser", user)
+                putExtra("currentUser", currentUser)
+                context!!.startActivity(this)
+            }
+        }
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+        val parent: RelativeLayout = view.find(R.id.rl_parent)
         val image: ImageView = view.find(R.id.iv_user_photo)
         val userName: TextView = view.find(R.id.tv_user_name)
         val age: TextView = view.find(R.id.tv_user_age)
