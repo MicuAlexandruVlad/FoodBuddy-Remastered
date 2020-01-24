@@ -1,6 +1,7 @@
 package com.example.foodbuddyremastered.utils
 
 import com.example.foodbuddyremastered.models.EatTimes
+import com.example.foodbuddyremastered.models.Message
 import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.models.UserFilter
 import com.google.gson.Gson
@@ -35,6 +36,7 @@ class JsonUtils {
 
         fun jsonObjectToUser(json: JSONObject): User {
             return User().also {
+                it.id = json.getString("_id")
                 it.email = json.getString("email")
                 it.firstName = json.getString("firstName")
                 it.lastName = json.getString("lastName")
@@ -115,6 +117,37 @@ class JsonUtils {
                         user.partnerMinAge = obj.getInt("partnerMinAge")
                     })
                 }
+            }
+        }
+
+        fun textMessageToJson(message: Message): JSONObject {
+            return JSONObject().apply {
+                with(message) {
+                    put("senderName", senderName)
+                    put("senderId", senderId)
+                    put("receiverId", receiverId)
+                    put("timeSent", timeSent)
+                    put("message", this.message)
+                    put("type", type)
+                }
+            }
+        }
+
+        fun jsonToMessage(map: Map<String, String>): Message {
+
+            return when (val type = map.getValue("type").toInt()) {
+                Message.TEXT_MESSAGE -> {
+                    Message().apply {
+                        this.type = type
+                        senderName = map.getValue("senderName")
+                        senderId = map.getValue("senderId")
+                        receiverId = map.getValue("receiverId")
+                        timeSent = map.getValue("timeSent")
+                        message = map.getValue("message")
+                    }
+                }
+
+                else -> Message()
             }
         }
     }

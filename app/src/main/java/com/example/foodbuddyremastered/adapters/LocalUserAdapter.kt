@@ -2,33 +2,19 @@ package com.example.foodbuddyremastered.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.foodbuddyremastered.R
-import com.example.foodbuddyremastered.constants.Actions
 import com.example.foodbuddyremastered.events.ResponseEvent
-import com.example.foodbuddyremastered.models.Conversation
 import com.example.foodbuddyremastered.models.LocalUser
-import com.example.foodbuddyremastered.models.TextMessage
-import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.utils.APIClient
 import com.example.foodbuddyremastered.utils.NotifUtils
-import com.example.foodbuddyremastered.utils.database.Repository
-import com.example.foodbuddyremastered.views.LoginActivity
-import com.example.foodbuddyremastered.views.MainActivity
-import cz.msebera.android.httpclient.HttpStatus
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 
 class LocalUserAdapter(private var items: ArrayList<LocalUser>, private val owner: LifecycleOwner,

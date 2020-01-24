@@ -14,7 +14,7 @@ import com.example.foodbuddyremastered.adapters.ConversationAdapter
 import com.example.foodbuddyremastered.constants.ButtonIds
 import com.example.foodbuddyremastered.events.ButtonPressedEvent
 import com.example.foodbuddyremastered.models.Conversation
-import com.example.foodbuddyremastered.models.TextMessage
+import com.example.foodbuddyremastered.models.Message
 import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.viewmodels.MainActivityViewModel
 import org.greenrobot.eventbus.EventBus
@@ -78,7 +78,7 @@ class ConversationsFragment: Fragment() {
                 user.firstName = "Dan"
                 user.lastName = "John"
             }
-            it.lastMessage = TextMessage().also { message ->
+            it.lastMessage = Message().also { message ->
                 message.message = "Hey ! Wanna hang out ?"
                 message.timeSent = "12:45 AM"
             }

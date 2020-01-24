@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_white"
+        android:id="@+id/rl_parent"
         android:fitsSystemWindows="true"
         >
 
@@ -23,14 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tb_top"
-            android:background="@color/onyx"
+            android:background="@color/colorPrimaryDark"
             >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rl_toolbar"
-                android:background="@color/onyx"
+                android:background="@color/colorPrimaryDark"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 >
@@ -72,31 +73,14 @@
 
 
 
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rl_mid"
-            android:layout_below="@id/tb_top"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_messages"
+            android:nestedScrollingEnabled="false"
             android:layout_above="@id/rl_bottom"
-
-            >
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                >
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rv_messages"
-                    android:nestedScrollingEnabled="false"
-                    />
-
-            </androidx.core.widget.NestedScrollView>
-
-        </RelativeLayout>
+            android:layout_below="@id/tb_top"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,7 +90,7 @@
             android:layout_alignParentBottom="true"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:paddingBottom="12dp"
+            android:paddingBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
@@ -122,6 +106,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toStartOf="@id/rl_send"
                 android:hint="Type something..."
+                android:text="@={ viewModel.messageValue }"
                 android:fontFamily="@font/nunito"
                 android:textSize="18sp"
                 android:background="@android:color/transparent"
@@ -136,6 +121,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:padding="13dp"
+                android:onClick="@{ () -> viewModel.onSendTextMessage() }"
                 >
 
                 <ImageView

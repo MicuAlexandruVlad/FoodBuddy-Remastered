@@ -11,4 +11,5 @@
 
     <color name="onyx">#3A2E39</color>
     <color name="message_sent">#D1E4FC</color>
+    <color name="message_received">#B1E0D1</color>
 </resources>

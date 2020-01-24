@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodbuddyremastered.R
 import com.example.foodbuddyremastered.models.Conversation
-import com.example.foodbuddyremastered.models.TextMessage
 import com.example.foodbuddyremastered.models.User
 import org.jetbrains.anko.find
 
@@ -39,7 +38,7 @@ class ConversationAdapter(private var items: ArrayList<Conversation>,
         Glide.with(context!!).load(conversation.photoId).into(holder.image)
         holder.conversationName.text = conversation.conversationUserName
         holder.conversationTimestamp.text = conversation.lastMessage.timeSent
-        holder.lastMessage.text = (conversation.lastMessage as TextMessage).message
+        holder.lastMessage.text = conversation.lastMessage.message
         holder.unreadMessages.text = conversation.unreadMessages.toString()
 
     }

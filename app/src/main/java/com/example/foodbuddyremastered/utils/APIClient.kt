@@ -10,8 +10,12 @@ import com.example.foodbuddyremastered.constants.ApiUrls
 import com.example.foodbuddyremastered.constants.ObjectTypes
 import com.example.foodbuddyremastered.events.ObjectUploadedEvent
 import com.example.foodbuddyremastered.events.ResponseEvent
+import com.example.foodbuddyremastered.events.SocketEvents
+import com.example.foodbuddyremastered.models.Message
 import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.models.UserFilter
+import com.github.nkzawa.socketio.client.IO
+import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
@@ -23,8 +27,19 @@ import org.json.JSONObject
 
 class APIClient {
 
+    lateinit var socket: Socket
+
     companion object {
         const val TAG = "APIClient"
+    }
+
+    fun initSocket() {
+        socket = IO.socket(ApiUrls.SOCKET_URL)
+        socket.connect()
+    }
+
+    fun disconnectSocket() {
+        socket.disconnect()
     }
 
     private val client = AsyncHttpClient()
@@ -110,12 +125,8 @@ class APIClient {
         })
     }
 
-    private fun emitObjectUploadedEvent(objectUploadedEvent: ObjectUploadedEvent) {
-        EventBus.getDefault().post(objectUploadedEvent)
-    }
-
-    private fun emitResponseEvent(responseEvent: ResponseEvent) {
-        EventBus.getDefault().post(responseEvent)
+    fun emitTextMessage(message: Message) {
+        socket.emit(SocketEvents.MESSAGE, JsonUtils.textMessageToJson(message))
     }
 
 }

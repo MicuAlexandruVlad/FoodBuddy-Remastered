@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.example.foodbuddyremastered.R
@@ -15,6 +16,7 @@ import com.example.foodbuddyremastered.models.User
 import com.example.foodbuddyremastered.models.UserFilter
 import com.example.foodbuddyremastered.utils.NotifUtils
 import com.example.foodbuddyremastered.viewmodels.MainActivityViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -27,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var notifUtils: NotifUtils
 
+    companion object {
+        const val TAG = "MainActivity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this)[MainActivityViewModel::class.java]
 
         viewModel.currentUser = intent.getSerializableExtra("currentUser") as User
+
+        FirebaseMessaging.getInstance().subscribeToTopic(viewModel.currentUser.id).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.d(TAG, "Subscribed to topic -> ${viewModel.currentUser.id}")
+            }
+        }
 
         pager = find(R.id.pager)
         pager.adapter = ViewPagerAdapter(supportFragmentManager,
