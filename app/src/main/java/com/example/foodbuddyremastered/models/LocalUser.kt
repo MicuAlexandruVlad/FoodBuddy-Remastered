@@ -9,6 +9,9 @@ class LocalUser {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 
+    var userId = ""
     var email = ""
     var password = ""
+
+    var isAuthenticated = false
 }

@@ -11,6 +11,8 @@ class ApiUrls {
 
         const val DISCOVER_USERS = BASE_URL + USER_PATH + "discover-users/"
 
+        const val GET_CONVERSATION_USERS = BASE_URL + USER_PATH + "conversation-user-data/"
+
 
     }
 }

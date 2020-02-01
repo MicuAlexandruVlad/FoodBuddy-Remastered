@@ -52,11 +52,15 @@ class MainActivity : AppCompatActivity() {
 
         pager = find(R.id.pager)
         pager.adapter = ViewPagerAdapter(supportFragmentManager,
+            // for conversation frag
             Bundle().apply {
-               putSerializable("currentUser", viewModel.currentUser)
-        }, Bundle().apply {
                 putSerializable("currentUser", viewModel.currentUser)
-        })
+                putSerializable("conversations", intent.getSerializableExtra("conversations"))
+                putSerializable("conversationIds", intent.getStringArrayListExtra("conversationIds"))
+        },  // for discover frag
+            Bundle().apply {
+                putSerializable("currentUser", viewModel.currentUser)
+        }, this)
     }
 
     override fun onDestroy() {
@@ -70,20 +74,5 @@ class MainActivity : AppCompatActivity() {
             ButtonIds.NAV_TO_DISCOVER -> pager.currentItem = 1
             ButtonIds.NAV_TO_CONVERSATIONS -> pager.currentItem = 0
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            when (requestCode) {
-                RequestCodes.FILTER_ACTIVITY -> {
-                    val newFilter = data.getSerializableExtra("filter") as UserFilter
-                    viewModel.discoverUsers(newFilter)
-                    notifUtils.createToast("Filter updated").show()
-                }
-            }
-        }
-
     }
 }

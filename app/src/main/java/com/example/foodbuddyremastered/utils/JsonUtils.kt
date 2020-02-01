@@ -1,9 +1,6 @@
 package com.example.foodbuddyremastered.utils
 
-import com.example.foodbuddyremastered.models.EatTimes
-import com.example.foodbuddyremastered.models.Message
-import com.example.foodbuddyremastered.models.User
-import com.example.foodbuddyremastered.models.UserFilter
+import com.example.foodbuddyremastered.models.*
 import com.google.gson.Gson
 import com.loopj.android.http.RequestParams
 import org.json.JSONArray
@@ -144,10 +141,24 @@ class JsonUtils {
                         receiverId = map.getValue("receiverId")
                         timeSent = map.getValue("timeSent")
                         message = map.getValue("message")
+                        conversationId = senderId
                     }
                 }
 
                 else -> Message()
+            }
+        }
+
+        fun jsonArrayToZodiacSignsArray(array: JSONArray): ArrayList<ZodiacSign> {
+            return ArrayList<ZodiacSign>().apply {
+                for (index in 0 until array.length()) {
+                    val obj = array.getJSONObject(index)
+                    add(ZodiacSign().apply {
+                        this.action = obj.getInt("action")
+                        this.selected = obj.getBoolean("selected")
+                        this.name = obj.getString("name")
+                    })
+                }
             }
         }
     }

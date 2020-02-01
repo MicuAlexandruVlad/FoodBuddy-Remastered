@@ -57,6 +57,13 @@ class SelectUserDialog(context: Context, private val owner: LifecycleOwner): Dia
                 canAuth = false
                 APIClient().apply {
                     val selectedUser = localUsers[index]
+                    doAsync {
+                        Repository(context).apply {
+                            // set this user as being currently authenticated within the app
+                            selectedUser.isAuthenticated = true
+                            updateLocalUser(selectedUser)
+                        }
+                    }
                     authUserEmail(selectedUser.email, selectedUser.password, response)
                 }
             }

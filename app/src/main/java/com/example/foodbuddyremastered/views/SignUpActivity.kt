@@ -20,6 +20,9 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SignUpViewModel
 
+    // TODO: add a signature field for the image (used for Glide caching)...maybe make it unix time and change
+    //  it whenever the image is changed
+
 
 
     // TODO: add profile picture feature

@@ -68,6 +68,8 @@ class LoginActivity : AppCompatActivity() {
                                         insertUser(LocalUser().apply {
                                             email = viewModel.email
                                             password = viewModel.password
+                                            isAuthenticated = true
+                                            userId = user.id
                                             Log.d(TAG, "User with email $email has been inserted in RoomDB")
                                         })
                                     }

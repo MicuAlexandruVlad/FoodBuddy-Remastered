@@ -35,7 +35,7 @@ class ConversationAdapter(private var items: ArrayList<Conversation>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val conversation = items[position]
 
-        Glide.with(context!!).load(conversation.photoId).into(holder.image)
+        Glide.with(context!!).load(R.drawable.placeholder).into(holder.image)
         holder.conversationName.text = conversation.conversationUserName
         holder.conversationTimestamp.text = conversation.lastMessage.timeSent
         holder.lastMessage.text = conversation.lastMessage.message

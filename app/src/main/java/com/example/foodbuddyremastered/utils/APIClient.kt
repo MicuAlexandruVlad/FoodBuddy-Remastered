@@ -24,6 +24,7 @@ import cz.msebera.android.httpclient.Header
 import cz.msebera.android.httpclient.HttpStatus
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import java.lang.StringBuilder
 
 class APIClient {
 
@@ -66,7 +67,8 @@ class APIClient {
         })
     }
 
-    fun authUserEmail(email: String, password: String, res: MutableLiveData<ResponseEvent>) {
+    fun authUserEmail(email: String, password: String, res: MutableLiveData<ResponseEvent>,
+                      client: AsyncHttpClient = AsyncHttpClient()) {
         val params = RequestParams().apply {
             put("email", email)
             put("password", password)
@@ -98,7 +100,7 @@ class APIClient {
         })
     }
 
-    fun discoverUsers(filter: UserFilter, list: MutableLiveData<List<User>>, user: User) {
+    fun discoverUsers(filter: UserFilter, list: MutableLiveData<List<User>>, user: User, client: AsyncHttpClient) {
         val params = JsonUtils.discoverFilterToParams(filter)
         params.put("userEmail", user.email)
         params.put("userAge", user.age)
@@ -123,6 +125,40 @@ class APIClient {
                 })
             }
         })
+    }
+
+    fun getConversationUsers(ids: List<String>, list: MutableLiveData<ResponseEvent>, client: AsyncHttpClient = AsyncHttpClient()) {
+
+        val builder = StringBuilder()
+        val params = RequestParams().apply {
+            for (index in ids.indices) {
+                builder.append(ids[index])
+
+                if (index < ids.size - 1) {
+                    builder.append("_")
+                }
+            }
+
+            put("ids", builder.toString())
+        }
+
+        client.get(ApiUrls.GET_CONVERSATION_USERS, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                val status = response!!.getInt("status")
+
+                list.postValue(ResponseEvent().apply {
+                    this.status = status
+                    payload = JsonUtils.jsonArrayToUserArray(response.getJSONArray("data"))
+                })
+            }
+        })
+
     }
 
     fun emitTextMessage(message: Message) {

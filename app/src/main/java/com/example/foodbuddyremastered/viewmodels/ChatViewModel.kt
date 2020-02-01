@@ -3,7 +3,6 @@ package com.example.foodbuddyremastered.viewmodels
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.graphics.Rect
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
@@ -101,6 +100,8 @@ class ChatViewModel(private val app: Application,
                 senderName = with(currentUser) { "$firstName $lastName" }
                 receiverId = conversationUser.id
                 type = Message.TEXT_MESSAGE
+                ownerId = currentUser.id
+                conversationId = conversationUser.id
 
                 storeMessageInRoom(this)
                 doAsync { client.emitTextMessage(this@apply) }
@@ -128,8 +129,10 @@ class ChatViewModel(private val app: Application,
     }
 
     private fun getMessagesForConversation(id: String) {
-        Repository(context).getMessagesForConversation(id)
+        Repository(context).getMessagesForConversationLive(id, currentUser.id)
             .observe(owner, Observer<List<Message>> {
+                if (messages.isNotEmpty())
+                    messages.clear()
                 messages.addAll(it)
                 messageAdapter.notifyDataSetChanged()
                 scrollToBottom()

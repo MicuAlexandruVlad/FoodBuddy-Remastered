@@ -5,138 +5,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white"
+    android:background="@drawable/splash_gradient"
     tools:context=".views.SplashActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab_local_users"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:elevation="0dp"
-        app:backgroundTint="@color/onyx"
-        android:src="@drawable/account"
-        android:tint="@color/md_white"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_log_in"
-        android:layout_above="@id/btn_sign_up"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/btn_round_onyx"
-        android:text="Login"
-        android:textSize="18sp"
-        android:textColor="@color/md_white"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/tv_separator_1"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        android:id="@+id/btn_sign_up"
-        android:background="@drawable/btn_round_onyx"
-        android:text="Sign Up"
-        android:textSize="18sp"
-        android:textColor="@color/md_white"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_other_options"
-        android:text="Other options"
-        android:textSize="16sp"
-        android:textColor="@color/md_grey_600"
-        android:layout_above="@id/ll_other_options"
-        android:layout_marginBottom="8dp"
-        android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/tv_separator_1"
-        android:background="@color/onyx"
-        android:layout_above="@id/tv_other_options"
-        android:layout_marginBottom="16dp"
-        />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_other_options"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="16dp"
-        android:paddingStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:layout_centerHorizontal="true"
-        android:clipToPadding="false"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:text="FoodBuddy"
+            android:textAlignment="center"
+            android:textColor="@color/md_white"
+            android:textSize="44sp"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rl_twitter"
-            android:layout_marginEnd="8dp"
-            android:padding="12dp"
-            android:background="@drawable/btn_round_onyx"
-            android:elevation="4dp"
-            >
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/twitter"
-                />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rl_facebook"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:padding="12dp"
-            android:background="@drawable/btn_round_onyx"
-            android:elevation="4dp"
-            >
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/facebook"
-                />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:id="@+id/rl_google"
-            android:padding="12dp"
-            android:background="@drawable/btn_round_onyx"
-            android:elevation="4dp"
-            >
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/google"
-                />
-
-        </RelativeLayout>
+            android:id="@+id/pb_progress"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:visibility="gone"
+            android:indeterminateTint="@color/md_teal_200"
+            />
 
     </LinearLayout>
 
