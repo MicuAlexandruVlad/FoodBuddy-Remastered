@@ -5,4 +5,5 @@ class ResponseEvent {
     var action: Int = -1
 
     var payload: Any? = null
+    var payload2: Any? = null
 }

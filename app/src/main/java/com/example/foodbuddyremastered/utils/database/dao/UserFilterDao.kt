@@ -1,10 +1,7 @@
 package com.example.foodbuddyremastered.utils.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.foodbuddyremastered.models.UserFilter
 
 @Dao
@@ -27,6 +24,9 @@ interface UserFilterDao {
 
     @Query("Select name From Filter Where ownerId = :ownerId")
     fun getFilterNamesLive(ownerId: String): LiveData<List<String>>
+
+    @Query("Delete From Filter Where id = :id")
+    fun removeFilter(id: Int)
 
     @Query("Delete From Filter where ownerId = :ownerId")
     fun nukeTable(ownerId: String)

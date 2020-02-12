@@ -6,6 +6,8 @@ import android.util.Base64
 import android.util.Log
 import com.example.foodbuddyremastered.models.CompressedImage
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.math.sign
 
 
 class ImageUtils {
@@ -38,15 +40,36 @@ class ImageUtils {
             return bitmap
         }
 
-        fun compressImage(bitmap: Bitmap, quality: Int): CompressedImage {
+        fun compressImage(bitmap: Bitmap, quality: Int, location: Int = -1): CompressedImage {
             return CompressedImage().apply {
                 val bao = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bao)
                 this.bitmap = bitmap
                 val bytes = bao.toByteArray()
-                this.encodedValue =Base64.encodeToString(bytes, Base64.DEFAULT)
+                this.encodedValue = Base64.encodeToString(bytes, Base64.DEFAULT)
+                val time = getUnix()
+                imageName = time
+                signature = time
+                this.location = location
             }
 
+        }
+
+        fun compressImageNew(bitmap: Bitmap, quality: Int, location: Int = -1): CompressedImage {
+            return CompressedImage().apply {
+                val bao = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bao)
+                val bytes = bao.toByteArray()
+                this.encodedValue = Base64.encodeToString(bytes, Base64.DEFAULT)
+                val time = getUnix()
+                imageName = time
+                signature = time
+                this.location = location
+            }
+        }
+
+        private fun getUnix(): String {
+            return Calendar.getInstance().time.time.toString()
         }
     }
 }

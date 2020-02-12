@@ -18,6 +18,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".views.AddReviewActivity"></activity>
+        <activity android:name=".views.PlaceActivity" />
+        <activity android:name=".views.AddPlaceActivity" />
+        <activity android:name=".views.PlacePickerActivity" />
+        <activity android:name=".views.EventWizardActivity" />
         <activity android:name=".views.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +37,7 @@
         <activity android:name=".views.MainActivity" />
         <activity android:name=".views.SignUpActivity" />
         <activity android:name=".views.LoginActivity" />
-        <activity android:name=".views.WelcomeActivity"/>
+        <activity android:name=".views.WelcomeActivity" />
 
         <service
             android:name=".services.MessageService"

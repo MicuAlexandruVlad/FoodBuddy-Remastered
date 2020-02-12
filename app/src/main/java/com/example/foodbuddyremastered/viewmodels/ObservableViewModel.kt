@@ -23,4 +23,5 @@ abstract class ObservableViewModel(app: Application): AndroidViewModel(app), Obs
     fun notifyChange(viewId:Int){
         callBacks.notifyChange(this, viewId)
     }
+
 }

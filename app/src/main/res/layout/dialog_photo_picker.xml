@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/md_white"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:fontFamily="@font/nunito_semibold"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/md_black"
+        android:text="Pick an option"
+        tools:ignore="HardcodedText" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rg"
+        android:layout_below="@id/tv_title"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Camera"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"
+            android:textColor="@color/md_black"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Gallery"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"
+            android:textColor="@color/md_black"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Web"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"
+            android:textColor="@color/md_black"
+            tools:ignore="HardcodedText" />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cancel"
+        android:layout_below="@id/rg"
+        android:text="Cancel"
+        android:layout_toStartOf="@id/btn_done"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/nunito_bold"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_done"
+        android:fontFamily="@font/nunito_bold"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/rg"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Done"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>

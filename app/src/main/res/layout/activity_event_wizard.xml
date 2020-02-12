@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.foodbuddyremastered.viewmodels.EventWizardViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/md_white"
+        android:fillViewport="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@color/md_white"
+                android:orientation="vertical"
+                android:layout_above="@id/rl_create_event"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".views.EventWizardActivity">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_title"
+                    android:textSize="24sp"
+                    android:textColor="@color/md_black"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="New Event"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    tools:ignore="HardcodedText" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_name"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/tag"
+                        android:tint="@color/deepBlue"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/met_event_name"
+
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textCapWords"
+                        android:hint="Event name"
+                        android:fontFamily="@font/nunito"
+                        app:met_floatingLabelText="Event Name"
+                        app:met_floatingLabel="highlight"
+                        tools:ignore="HardcodedText" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_city"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/city"
+                        android:tint="@color/deepBlue"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/iv_city"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/met_event_city"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textCapWords"
+                        android:hint="Event city"
+                        android:fontFamily="@font/nunito"
+                        app:met_floatingLabelText="Event City"
+                        app:met_floatingLabel="highlight"
+                        tools:ignore="HardcodedText" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_country"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/country"
+                        android:tint="@color/deepBlue"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/met_event_country"
+
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textCapWords"
+                        android:hint="Event country"
+                        android:fontFamily="@font/nunito"
+                        app:met_floatingLabelText="Event Country"
+                        app:met_floatingLabel="highlight"
+                        tools:ignore="HardcodedText" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/rl_event_time"
+                    android:onClick="@{() -> viewModel.onTimeChange()}"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_event_time"
+                        android:src="@drawable/time"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:tint="@color/deepBlue"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/iv_event_time"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_event_time_label"
+                            android:textSize="16sp"
+                            android:textColor="@color/md_black"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:text="Tap to change"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/md_grey_400"
+                            android:text="Time"
+                            android:layout_marginTop="4dp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_event_time"
+                            android:visibility="gone"
+                            android:textSize="16sp"
+                            android:textColor="@color/md_black"
+                            android:fontFamily="@font/nunito_semibold"
+                            tools:text="2:45 PM"
+                            android:layout_marginTop="4dp"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/rl_event_date"
+                    android:onClick="@{() -> viewModel.onDateChange()}"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_event_date"
+                        android:src="@drawable/calendar"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:tint="@color/deepBlue"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/iv_event_date"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_event_date_label"
+                            android:textSize="16sp"
+                            android:textColor="@color/md_black"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:text="Tap to change"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="@color/md_grey_400"
+                            android:text="Date"
+                            android:layout_marginTop="4dp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_event_date"
+                            android:textSize="16sp"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            android:textColor="@color/md_black"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:text="Tap to change"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{() -> viewModel.onPlaceChange()}"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/iv_event_location"
+                        android:src="@drawable/location"
+                        android:tint="@color/deepBlue"
+                        android:layout_marginStart="16dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_event_location"
+                        android:layout_toEndOf="@id/iv_event_location"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical"
+                        android:animateLayoutChanges="true"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_event_place"
+                            android:textSize="16sp"
+                            android:textColor="@color/md_black"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:text="Tap to change"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:id="@+id/tv_location_label"
+                            android:textColor="@color/md_grey_400"
+                            android:text="Location"
+                            android:layout_marginTop="4dp"
+                            tools:ignore="HardcodedText" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ll_place_holder"
+                            android:orientation="vertical"
+                            android:layout_marginTop="8dp"
+                            >
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                app:cardCornerRadius="24dp"
+                                app:cardElevation="0dp"
+                                >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:clipToPadding="false"
+                                    android:paddingBottom="16dp"
+                                    android:orientation="vertical">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:cardElevation="0dp"
+                                        android:translationZ="0dp"
+                                        app:cardCornerRadius="24dp">
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp">
+
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="200dp"
+                                                android:translationZ="0dp"
+                                                android:id="@+id/iv_place_image"
+                                                android:scaleType="centerCrop"
+                                                tools:src="@drawable/placeholder_2"
+                                                />
+
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="200dp"
+                                                android:src="@drawable/gradient"
+                                                />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true"
+                                                android:layout_marginStart="12dp"
+                                                android:layout_marginEnd="12dp"
+                                                android:layout_marginBottom="12dp"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:id="@+id/tv_place_name"
+                                                    android:fontFamily="@font/nunito_bold"
+                                                    tools:text="Burger King"
+                                                    android:textSize="20sp"
+                                                    android:textColor="@color/md_white"
+                                                    />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:id="@+id/tv_place_address"
+                                                    tools:text="700 East Cesar E Chavez Avenue 90012"
+                                                    android:textSize="15sp"
+                                                    android:textColor="@color/md_grey_400"
+                                                    android:fontFamily="@font/nunito"
+                                                    android:layout_marginTop="4dp"
+                                                    />
+
+                                            </LinearLayout>
+
+                                        </RelativeLayout>
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/rl_create_event"
+                android:background="@drawable/deep_blue_top_round"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/md_white"
+                    android:textAllCaps="true"
+                    android:text="Create event"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/nunito_bold"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

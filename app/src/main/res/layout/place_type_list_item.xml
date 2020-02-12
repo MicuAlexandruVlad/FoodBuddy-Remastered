@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="172dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    android:animateLayoutChanges="true"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:clipToPadding="false"
+    android:background="@drawable/grey_round"
+    tools:ignore="RtlSymmetry">
+
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:id="@+id/iv_place_type_icon"
+        tools:src="@drawable/restaurant"
+        android:layout_centerVertical="true"
+        android:tint="@color/md_white"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="52dp"
+        android:id="@+id/tv_separator_1"
+        android:background="@color/md_white"
+        android:layout_toEndOf="@id/iv_place_type_icon"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/tv_place_type_name"
+        android:fontFamily="@font/nunito_semibold"
+        android:textColor="@color/md_white"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tv_separator_1"
+        android:layout_centerVertical="true"
+        tools:text="Restaurant"
+        />
+
+</RelativeLayout>

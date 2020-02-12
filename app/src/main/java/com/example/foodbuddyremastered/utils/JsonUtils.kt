@@ -161,5 +161,103 @@ class JsonUtils {
                 }
             }
         }
+
+        fun placeToRequestParams(place: Place): RequestParams {
+            return RequestParams().apply {
+                with(place) {
+                    put("name", name)
+                    put("city", address.city)
+                    put("country", address.country)
+                    put("streetName", address.street)
+                    put("zip", address.postalCode)
+                    put("description", description)
+                    put("type", placeType)
+                    put("hasSchedule", hasSchedule)
+                    put("scheduleMonday", schedule.getValue("Monday"))
+                    put("scheduleTuesday", schedule.getValue("Tuesday"))
+                    put("scheduleWednesday", schedule.getValue("Wednesday"))
+                    put("scheduleThursday", schedule.getValue("Thursday"))
+                    put("scheduleFriday", schedule.getValue("Friday"))
+                    put("scheduleSaturday", schedule.getValue("Saturday"))
+                    put("scheduleSunday", schedule.getValue("Sunday"))
+                    put("rating", rating)
+                    put("visitors", visitors)
+                    put("createdBy", createdBy)
+                    put("lastEditedBy", lastEditedBy)
+                }
+            }
+        }
+
+        fun compressedImageToRequestParams(compressedImage: CompressedImage, id: String): RequestParams {
+            return RequestParams().apply {
+                put("data", compressedImage.encodedValue)
+                put("name", compressedImage.imageName)
+                put("signature", compressedImage.signature)
+                put("placeId", id)
+            }
+        }
+
+        fun jsonObjectToPlace(jsonObject: JSONObject): Place {
+            return Place().apply {
+                with(jsonObject) {
+                    id = getString("_id")
+                    name = getString("name")
+                    address = Address().apply {
+                        city = getString("city")
+                        country = getString("country")
+                        street = getString("street")
+                        postalCode = getString("zip")
+                    }
+                    description = getString("description")
+                    placeType = getString("type")
+                    hasSchedule = getBoolean("hasSchedule")
+                    rating = getDouble("rating")
+                    visitors = getInt("visitors")
+                    createdBy = getString("createdBy")
+                    lastEditedBy = getString("lastEditedBy")
+                    numReviews = getInt("reviews")
+                    schedule = HashMap<String, String>().apply {
+                        val s = getJSONArray("schedule")
+
+                        put("Monday", s.getString(0))
+                        put("Tuesday", s.getString(1))
+                        put("Wednesday", s.getString(2))
+                        put("Thursday", s.getString(3))
+                        put("Friday", s.getString(4))
+                        put("Saturday", s.getString(5))
+                        put("Sunday", s.getString(6))
+                    }
+                    photoId = ArrayList<String>().apply {
+                        val photoIds = getJSONArray("photos")
+                        for (index in 0 until photoIds.length()) {
+                            add(photoIds.getJSONObject(index).getString("_id"))
+                        }
+                    }
+                }
+            }
+        }
+
+        fun reviewToRequestParams(review: Review): RequestParams {
+            return RequestParams().apply {
+                with(review) {
+                    put("content", content)
+                    put("rating", rating)
+                    put("userId", userId)
+                    put("userName", userName)
+                    put("placeId", placeId)
+                    put("timestamp", timestamp)
+                }
+            }
+        }
+
+        fun jsonObjectToReview(jsonObject: JSONObject): Review {
+            return Review().apply {
+                content = jsonObject.getString("content")
+                rating = jsonObject.getDouble("rating")
+                userName = jsonObject.getString("userName")
+                userId = jsonObject.getString("userId")
+                timestamp = jsonObject.getString("timestamp")
+            }
+        }
     }
 }

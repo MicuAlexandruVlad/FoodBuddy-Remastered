@@ -93,6 +93,10 @@ class Repository(context: Context) {
         db.filterDao().updateFilter(filter)
     }
 
+    fun removeFilter(id: Int) {
+        db.filterDao().removeFilter(id)
+    }
+
     fun nukeFilters(ownerId: String) {
         db.filterDao().nukeTable(ownerId)
     }

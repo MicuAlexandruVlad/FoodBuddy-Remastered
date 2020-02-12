@@ -1,6 +1,8 @@
 package com.example.foodbuddyremastered.utils
 
 import android.animation.ValueAnimator
+import android.graphics.drawable.Drawable
+import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
 
 class AnimationUtils {

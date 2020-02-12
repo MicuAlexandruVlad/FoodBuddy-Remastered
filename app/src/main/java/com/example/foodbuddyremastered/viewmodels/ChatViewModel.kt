@@ -1,8 +1,10 @@
 package com.example.foodbuddyremastered.viewmodels
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +22,7 @@ import com.example.foodbuddyremastered.utils.APIClient
 import com.example.foodbuddyremastered.utils.NotifUtils
 import com.example.foodbuddyremastered.utils.database.Repository
 import com.example.foodbuddyremastered.utils.database.TimeUtils
+import com.example.foodbuddyremastered.views.EventWizardActivity
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -80,13 +83,24 @@ class ChatViewModel(private val app: Application,
         })
     }
 
-    private fun bindViews(activity: Activity) {
-        parent = activity.find(R.id.rl_parent)
-        recyclerView = activity.find(R.id.rv_messages)
-        receiverName = activity.find(R.id.tv_user_name)
-        receiverPicture = activity.find(R.id.iv_user_photo)
-        messageField = activity.find(R.id.et_message_text)
-        send = activity.find(R.id.rl_send)
+    fun onNewEvent() {
+        val builder = AlertDialog.Builder(context)
+            .setTitle("New Event")
+            .setMessage("You are about to create a new event. You will be able to set a date, a name and a place. Your partner will also be notified" +
+                    " when the event is created. Do you want to continue ?")
+            .setNegativeButton("NO") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .setPositiveButton("YES") { dialogInterface, _ ->
+                context.startActivity(Intent(context, EventWizardActivity::class.java).also {
+                    it.putExtra("currentUser", currentUser)
+                    it.putExtra("conversationUser", conversationUser)
+                })
+                dialogInterface.dismiss()
+            }
+
+        builder.create()
+        builder.show()
     }
 
     fun onSendTextMessage() {
@@ -141,6 +155,15 @@ class ChatViewModel(private val app: Application,
 
     private fun scrollToBottom() {
         layoutManager.scrollToPositionWithOffset(messageAdapter.itemCount - 1, 0)
+    }
+
+    private fun bindViews(activity: Activity) {
+        parent = activity.find(R.id.rl_parent)
+        recyclerView = activity.find(R.id.rv_messages)
+        receiverName = activity.find(R.id.tv_user_name)
+        receiverPicture = activity.find(R.id.iv_user_photo)
+        messageField = activity.find(R.id.et_message_text)
+        send = activity.find(R.id.rl_send)
     }
 
 

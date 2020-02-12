@@ -7,11 +7,8 @@ import android.content.Context
 import android.database.DataSetObserver
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -46,6 +43,7 @@ class FilterViewModel(app: Application,
     lateinit var currentUser: User
 
     private var activeFilter = UserFilter()
+    private var spinnerData = ArrayList<String>()
     private var liveActiveFilter = MutableLiveData<UserFilter>()
     private var filters = ArrayList<UserFilter>()
     private lateinit var zodiacSignAdapter: ZodiacSignAdapter
@@ -87,7 +85,6 @@ class FilterViewModel(app: Application,
         selectedSignsRV.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.VERTICAL, false)
 
-        val spinnerData = ArrayList<String>()
         val dataAdapter = ArrayAdapter<String>(
             context,
             android.R.layout.simple_spinner_item,
@@ -96,9 +93,6 @@ class FilterViewModel(app: Application,
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         filterSelector.adapter = dataAdapter
 
-        dataAdapter.registerDataSetObserver(object : DataSetObserver() {
-
-        })
 
         filterSelector.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
@@ -183,6 +177,12 @@ class FilterViewModel(app: Application,
                 isFemale = true
             }
         }
+
+        selectedSigns.clear()
+        selectedSigns.addAll(activeFilter.zodiacSigns)
+        zodiacSignAdapter.notifyDataSetChanged()
+
+
     }
 
     fun onUserFemale() {
@@ -233,8 +233,6 @@ class FilterViewModel(app: Application,
             ownerId = currentUser.id
             zodiacSigns.addAll(ZodiacSign.getList())
 
-
-
             updateUi(this)
             insertFilter(this)
             activeFilter.isLastUsed = false
@@ -255,7 +253,23 @@ class FilterViewModel(app: Application,
     }
 
     fun onRemoveFilter() {
+        if (activeFilter.type == UserFilter.DEFAULT_FILTER) {
+            Toast.makeText(context, "Default filter can not be deleted", Toast.LENGTH_SHORT).show()
+        } else {
+            val builder = AlertDialog.Builder(context)
+                .setTitle("Delete filter")
+                .setMessage("You are about to delete this filter. Are you sure ?")
+                .setNegativeButton("NO") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                .setPositiveButton("YES") { dialogInterface, _ ->
+                    doAsync { Repository(context).removeFilter(activeFilter.id!!) }
+                    dialogInterface.dismiss()
+                }
 
+            builder.create()
+            builder.show()
+        }
     }
 
     fun onAddSigns() {
@@ -313,6 +327,8 @@ class FilterViewModel(app: Application,
             notifUtils.createToast("Start and end fields are empty").show()
         } else {
             bindFilterData()
+
+            activeFilter.isLastUsed = true
 
             doAsync { Repository(context).updateFilter(activeFilter) }
 

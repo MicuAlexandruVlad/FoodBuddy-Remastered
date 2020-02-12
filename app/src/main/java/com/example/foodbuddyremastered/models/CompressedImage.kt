@@ -8,4 +8,9 @@ class CompressedImage: Serializable {
     lateinit var bitmap: Bitmap
     lateinit var encodedValue: String
     lateinit var imageName: String
+
+
+    var url = ""
+    var signature = ""
+    var location = -1
 }

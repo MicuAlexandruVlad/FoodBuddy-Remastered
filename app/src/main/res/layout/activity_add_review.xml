@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/md_white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.AddReviewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Review"
+            android:textSize="24sp"
+            android:textColor="@color/onyx"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="24dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Rate the place"
+            android:textSize="16sp"
+            android:textColor="@color/onyx"
+            android:fontFamily="@font/nunito_semibold"
+            tools:ignore="HardcodedText" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_place_rating"
+            style="@style/Widget.AppCompat.RatingBar"
+            android:numStars="5"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Comment (Optional)"
+            android:textSize="16sp"
+            android:textColor="@color/onyx"
+            android:fontFamily="@font/nunito_semibold"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_review_text"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Write something"
+            android:inputType="textCapSentences"
+            android:fontFamily="@font/nunito"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_publish_review"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/deep_blue_top_round"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Publish"
+            android:textAllCaps="true"
+            android:textColor="@color/md_white"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginTop="20dp"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -2,14 +2,20 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#683B64</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">@color/deepBlue</color>
 
     <color name="female">#D81B60</color>
     <color name="male">#0090C9</color>
     
     <color name="deepBlue">#0459B9</color>
 
-    <color name="onyx">#3A2E39</color>
+    <color name="onyx">#352133</color>
     <color name="message_sent">#D1E4FC</color>
     <color name="message_received">#B1E0D1</color>
+
+    <color name="restaurant">#FF773D</color>
+    <color name="fast_food">#048A81</color>
+    <color name="cafe">#6247AA</color>
+    <color name="buffet">#004385</color>
+    <color name="place_type_off">@color/md_grey_600</color>
 </resources>

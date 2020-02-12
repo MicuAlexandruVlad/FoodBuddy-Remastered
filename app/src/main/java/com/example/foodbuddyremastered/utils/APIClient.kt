@@ -7,13 +7,9 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.foodbuddyremastered.constants.Actions
 import com.example.foodbuddyremastered.constants.ApiUrls
-import com.example.foodbuddyremastered.constants.ObjectTypes
-import com.example.foodbuddyremastered.events.ObjectUploadedEvent
 import com.example.foodbuddyremastered.events.ResponseEvent
 import com.example.foodbuddyremastered.events.SocketEvents
-import com.example.foodbuddyremastered.models.Message
-import com.example.foodbuddyremastered.models.User
-import com.example.foodbuddyremastered.models.UserFilter
+import com.example.foodbuddyremastered.models.*
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
@@ -22,7 +18,6 @@ import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import cz.msebera.android.httpclient.HttpStatus
-import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.lang.StringBuilder
 
@@ -159,6 +154,140 @@ class APIClient {
             }
         })
 
+    }
+
+    fun registerPlace(place: Place, liveResponse: MutableLiveData<ResponseEvent>,
+                      client: AsyncHttpClient = AsyncHttpClient()) {
+
+        client.post(ApiUrls.REGISTER_PLACE, JsonUtils.placeToRequestParams(place),
+            object : JsonHttpResponseHandler() {
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    response: JSONObject?
+                ) {
+                    super.onSuccess(statusCode, headers, response)
+
+                    val status = response!!.getInt("status")
+                    val id = response.getString("id")
+
+                    Log.d(TAG, "registerPlace: id -> $id")
+                    Log.d(TAG, "registerPlace: status -> $status")
+
+                    liveResponse.postValue(ResponseEvent().apply {
+                        payload = id
+                        this.status = status
+                        action = Actions.PLACE_REGISTERED
+                    })
+                }
+            })
+    }
+
+    fun uploadPlaceImage(compressedImage: CompressedImage, liveResponse: MutableLiveData<ResponseEvent>,
+                         id: String, index: Int, client: AsyncHttpClient = AsyncHttpClient()
+    ) {
+
+        val params = JsonUtils.compressedImageToRequestParams(compressedImage, id)
+
+        client.post(ApiUrls.UPLOAD_PLACE_IMAGE, params, object : JsonHttpResponseHandler() {
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    response: JSONObject?
+                ) {
+                    super.onSuccess(statusCode, headers, response)
+
+                    liveResponse.postValue(ResponseEvent().apply {
+                        status = response!!.getInt("status")
+                        action = Actions.PLACE_IMAGE_UPLOADED
+                        payload = index
+                        payload2 = response.getString("id")
+                    })
+                }
+            })
+    }
+
+    fun requestPlaces(
+        city: String, country: String, limit: Int, liveResponse: MutableLiveData<ResponseEvent>,
+        client: AsyncHttpClient = AsyncHttpClient()
+    ) {
+        val params = RequestParams().also {
+            it.put("city", city)
+            it.put("country", country)
+            it.put("limit", limit)
+        }
+
+        client.get(ApiUrls.REQUEST_PLACES, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                val status = response!!.getInt("status")
+                val places = response.getJSONArray("places")
+
+                liveResponse.postValue(ResponseEvent().apply {
+                    this.status = status
+                    action = Actions.RECEIVED_PLACES
+                    payload = places
+                })
+            }
+        })
+    }
+
+    fun registerReview(review: Review, liveResponse: MutableLiveData<ResponseEvent>,
+                       client: AsyncHttpClient = AsyncHttpClient()) {
+        val params = JsonUtils.reviewToRequestParams(review)
+
+        client.post(ApiUrls.UPLOAD_REVIEW, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                val status = response!!.getInt("status")
+
+                liveResponse.postValue(ResponseEvent().apply {
+                    action = Actions.REVIEW_UPLOADED
+                    this.status = status
+                })
+            }
+        })
+    }
+
+    fun getReviews(
+        placeId: String, limit: Int,
+        liveResponse: MutableLiveData<ResponseEvent>,
+        client: AsyncHttpClient = AsyncHttpClient()
+    ) {
+        val params = RequestParams().apply {
+            put("placeId", placeId)
+            put("limit", limit)
+        }
+
+        client.get(ApiUrls.GET_REVIEWS, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                response: JSONObject?
+            ) {
+                super.onSuccess(statusCode, headers, response)
+
+                Log.d(TAG, "getReviews: response -> $response")
+
+                val status = response!!.getInt("status")
+
+                liveResponse.postValue(ResponseEvent().apply {
+                    action = Actions.RECEIVED_REVIEWS
+                    payload = response.getJSONArray("reviews")
+                    this.status = status
+                })
+            }
+        })
     }
 
     fun emitTextMessage(message: Message) {
